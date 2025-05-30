@@ -1,0 +1,729 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SINGLE SOURCE OF TRUTH FOR BACKGROUND AND STYLING */
+
+/* Make all text unselectable by default for better performance */
+html,
+body,
+button,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div {
+  -webkit-user-select: none;
+  -moz-user-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Make input fields and textareas selectable */
+input,
+textarea {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
+
+/* SINGLE BACKGROUND DEFINITION */
+:root {
+  --background-grey: #d9d9d9;
+  --neon-red: rgb(255, 0, 0);
+  --neon-red-stroke: 0.5px rgb(255, 0, 0);
+  --solid-blue: rgb(0, 102, 255);
+  --text-shadow-quality: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --border-radius-smooth: 12px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-INDEX LAYERS - FIXED HIERARCHY FOR CLOUD VISIBILITY */
+  --z-index-background: 0;
+  --z-index-clouds: 15; /* Increased from 5 to 15 to be above content */
+  --z-index-content: 10;
+  --z-index-face: 20;
+  --z-index-bullets: 9000;
+  --z-index-bullet-content: 9001;
+}
+
+html,
+body {
+  font-family: "Courier New", Courier, monospace;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  background-color: var(--background-grey) !important; /* SINGLE BACKGROUND REFERENCE */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Font classes */
+.font-mono {
+  font-family: "Courier New", Courier, monospace;
+  font-feature-settings: "liga" 1, "kern" 1;
+  font-variant-ligatures: common_ligatures;
+}
+
+.font-sketch {
+  font-family: var(--font-orbitron), monospace;
+  font-feature-settings: "liga" 1, "kern" 1;
+  font-variant-ligatures: common_ligatures;
+}
+
+/* SINGLE FLOATING ANIMATION SYSTEM */
+@keyframes float-sync-primary {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(4px, -3px, 0) rotate(0.8deg);
+  }
+  50% {
+    transform: translate3d(-3px, 5px, 0) rotate(-0.6deg);
+  }
+  75% {
+    transform: translate3d(-5px, -2px, 0) rotate(0.4deg);
+  }
+}
+
+@keyframes float-sync-secondary {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(-3px, 4px, 0) rotate(-0.6deg);
+  }
+  50% {
+    transform: translate3d(5px, -2px, 0) rotate(0.8deg);
+  }
+  75% {
+    transform: translate3d(2px, 3px, 0) rotate(-0.4deg);
+  }
+}
+
+@keyframes float-sync-tertiary {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(2px, -4px, 0) rotate(0.5deg);
+  }
+  50% {
+    transform: translate3d(-4px, 2px, 0) rotate(-0.7deg);
+  }
+  75% {
+    transform: translate3d(3px, -1px, 0) rotate(0.3deg);
+  }
+}
+
+@keyframes float-sync-quaternary {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(-2px, 3px, 0) rotate(-0.4deg);
+  }
+  50% {
+    transform: translate3d(3px, -4px, 0) rotate(0.6deg);
+  }
+  75% {
+    transform: translate3d(-4px, 1px, 0) rotate(-0.2deg);
+  }
+}
+
+@keyframes float-sync-micro {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(1px, -2px, 0) rotate(0.2deg);
+  }
+  50% {
+    transform: translate3d(-2px, 1px, 0) rotate(-0.3deg);
+  }
+  75% {
+    transform: translate3d(2px, -1px, 0) rotate(0.1deg);
+  }
+}
+
+/* SINGLE FLOATING ANIMATION CLASSES */
+.zero-gravity-sync-primary {
+  animation: float-sync-primary 20s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout style;
+  filter: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.zero-gravity-sync-secondary {
+  animation: float-sync-secondary 20s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout style;
+  filter: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.zero-gravity-sync-tertiary {
+  animation: float-sync-tertiary 20s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout style;
+  filter: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.zero-gravity-sync-quaternary {
+  animation: float-sync-quaternary 20s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout style;
+  filter: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.zero-gravity-sync-micro {
+  animation: float-sync-micro 20s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout style;
+  filter: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Phase-shifted versions */
+.zero-gravity-sync-primary-delayed {
+  animation: float-sync-primary 20s ease-in-out infinite;
+  animation-delay: -5s;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout style;
+  filter: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.zero-gravity-sync-secondary-delayed {
+  animation: float-sync-secondary 20s ease-in-out infinite;
+  animation-delay: -10s;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout style;
+  filter: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.zero-gravity-sync-tertiary-delayed {
+  animation: float-sync-tertiary 20s ease-in-out infinite;
+  animation-delay: -15s;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout style;
+  filter: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Enhanced rainbow animation */
+@keyframes rainbow-text {
+  0% {
+    color: #ff0000;
+    -webkit-text-stroke: 1px #ff0000;
+    filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.5));
+  }
+  16.67% {
+    color: #ff8800;
+    -webkit-text-stroke: 1px #ff8800;
+    filter: drop-shadow(0 0 3px rgba(255, 136, 0, 0.5));
+  }
+  33.33% {
+    color: #ffff00;
+    -webkit-text-stroke: 1px #ffff00;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 0, 0.5));
+  }
+  50% {
+    color: #00ff00;
+    -webkit-text-stroke: 1px #00ff00;
+    filter: drop-shadow(0 0 3px rgba(0, 255, 0, 0.5));
+  }
+  66.67% {
+    color: #0088ff;
+    -webkit-text-stroke: 1px #0088ff;
+    filter: drop-shadow(0 0 3px rgba(0, 136, 255, 0.5));
+  }
+  83.33% {
+    color: #8800ff;
+    -webkit-text-stroke: 1px #8800ff;
+    filter: drop-shadow(0 0 3px rgba(136, 0, 255, 0.5));
+  }
+  100% {
+    color: #ff0000;
+    -webkit-text-stroke: 1px #ff0000;
+    filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.5));
+  }
+}
+
+/* Enhanced bullet layer styling */
+.bullet-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-index-bullets);
+  overflow: visible;
+  contain: strict;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.bullet-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  contain: content !important;
+  will-change: transform !important;
+  position: fixed !important;
+  z-index: var(--z-index-bullet-content) !important;
+  pointer-events: none !important;
+  transform-origin: center center !important;
+  backface-visibility: hidden !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Enhanced rainbow text effects */
+.bullet-rainbow {
+  animation: rainbow-text 2s linear infinite;
+  font-weight: 900 !important;
+  will-change: color, filter;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.bullet-rainbow-offset-1 {
+  animation-delay: -0.33s;
+}
+.bullet-rainbow-offset-2 {
+  animation-delay: -0.66s;
+}
+.bullet-rainbow-offset-3 {
+  animation-delay: -1s;
+}
+.bullet-rainbow-offset-4 {
+  animation-delay: -1.33s;
+}
+.bullet-rainbow-offset-5 {
+  animation-delay: -1.66s;
+}
+
+/* Enhanced responsive viewport container */
+.viewport-container {
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  contain: layout size style;
+  touch-action: manipulation;
+  background-color: var(--background-grey) !important;
+  z-index: var(--z-index-background); /* Keep at background level */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  isolation: auto; /* Don't create new stacking context */
+}
+
+/* Enhanced social links styling */
+.social-link {
+  font-family: var(--font-orbitron), monospace !important;
+  font-size: clamp(1.5rem, 5vmin, 2.5rem) !important;
+  font-weight: 900 !important;
+  text-decoration: underline !important;
+  color: #000 !important;
+  letter-spacing: 0.05em !important;
+  cursor: pointer !important;
+  -webkit-text-stroke: 0.75px #000000 !important;
+  will-change: transform, color !important;
+  transform: translateZ(0) !important;
+  transition: var(--transition-smooth) !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) !important;
+}
+
+.social-link:hover {
+  color: #555 !important;
+  transform: translateZ(0) translateY(-1px) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15)) !important;
+}
+
+/* Enhanced neon red text */
+.neon-red-text {
+  color: var(--neon-red) !important;
+  font-weight: 900 !important;
+  letter-spacing: 1px !important;
+  -webkit-text-stroke: var(--neon-red-stroke) !important;
+  will-change: transform !important;
+  transform: translateZ(0) !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.3)) !important;
+}
+
+/* Enhanced title styling */
+.title {
+  font-family: var(--font-orbitron), monospace !important;
+  font-weight: 900 !important;
+  -webkit-text-stroke: 1px #000000 !important;
+  letter-spacing: 0.5px !important;
+  color: #000000 !important;
+  will-change: transform !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) !important;
+}
+
+.title-link {
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: var(--transition-smooth) !important;
+}
+
+.title-link:hover {
+  color: #555 !important;
+  transform: translateY(-1px) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15)) !important;
+}
+
+/* Tailwind base layer */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply text-foreground;
+    background-color: var(--background-grey) !important; /* SINGLE BACKGROUND REFERENCE */
+  }
+}
+
+/* Enhanced responsive styles */
+@media (max-width: 640px) {
+  .social-link {
+    font-size: clamp(1.25rem, 4.5vmin, 2.25rem) !important;
+  }
+}
+
+@media (max-height: 500px) {
+  .face-container {
+    margin-bottom: 1vh;
+  }
+  .tagline {
+    margin-bottom: 1vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* Enhanced performance utility classes */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  contain: layout style;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Enhanced LOL face container */
+.dynamic-lol-face-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  min-width: 150px;
+  min-height: 150px;
+  pointer-events: auto;
+  contain: layout paint style;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  z-index: 10;
+  isolation: isolate;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Enhanced transition classes */
+.opacity-0 {
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+.opacity-100 {
+  opacity: 1;
+  transition: var(--transition-smooth);
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+  will-change: transform;
+  transition: var(--transition-smooth);
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+/* Special mode styles remain the same but with enhanced quality */
+body.special-mode {
+  background-color: white !important;
+}
+
+/* Keep these elements visible in special mode with enhanced quality */
+body.special-mode .dynamic-lol-face-container,
+body.special-mode .face-container,
+body.special-mode .lol-face-image,
+body.special-mode .bullet-container,
+body.special-mode .text-particle-char,
+body.special-mode .bullet-layer {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Enhanced bullet animations in special mode */
+body.special-mode .bullet-rainbow {
+  animation: rainbow-text 2s linear infinite !important;
+}
+
+/* Enhanced counter container visibility */
+body.special-mode .counter-container {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+}
+
+body.special-mode .counter-value {
+  opacity: 0 !important;
+  transition: opacity 0.5s ease;
+}
+
+/* Hide everything else with smooth transitions */
+body.special-mode .header-section,
+body.special-mode .social-section,
+body.special-mode .buttons-container,
+body.special-mode .tagline {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* Enhanced special mode face visibility */
+body.special-mode .lol-face-image {
+  transition: opacity 0ms !important;
+  image-rendering: -webkit-optimize-contrast !important;
+  image-rendering: crisp-edges !important;
+}
+
+body.special-mode .lol-face-image.opacity-0 {
+  opacity: 0 !important;
+}
+
+body.special-mode .lol-face-image.opacity-100 {
+  opacity: 1 !important;
+}
+
+/* Enhanced mask persistence */
+.mask-persist {
+  animation-fill-mode: forwards !important;
+  -webkit-mask-image: linear-gradient(to left, #000 100%, transparent 100%) !important;
+  mask-image: linear-gradient(to left, #000 100%, transparent 100%) !important;
+}
+
+/* Enhanced special mode bullet visibility */
+body.special-mode .bullet-container,
+body.special-mode .text-particle-char,
+body.special-mode .bullet-layer {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 10000 !important;
+  pointer-events: none !important;
+  display: block !important;
+  position: fixed !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Force enhanced bullet visibility */
+.bullet-container {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Enhanced text particle visibility */
+.text-particle-char {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Enhanced special mode bullet styles */
+.special-mode-bullet {
+  z-index: 10000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Enhanced special mode active layer */
+.special-mode-active {
+  z-index: 9999 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Override transitions in special mode */
+body.special-mode * {
+  transition: none !important;
+}
+
+/* Ensure enhanced bullet visibility during transitions */
+body.special-mode .bullet-container,
+body.special-mode .text-particle-char {
+  transition: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* FORCE SOCIAL LINKS TO FLOAT - Maximum Specificity Override */
+a.social-link,
+.social-link,
+.social-links a,
+.social-links .social-link {
+  animation: float-sync-primary 20s ease-in-out infinite !important;
+  will-change: transform !important;
+  backface-visibility: hidden !important;
+  transform: translateZ(0) !important;
+  contain: layout style !important;
+  filter: none !important;
+  image-rendering: -webkit-optimize-contrast !important;
+}
+
+/* Individual social link animations with different delays */
+.social-links a:nth-child(1),
+.social-links .social-link:nth-child(1) {
+  animation: float-sync-secondary 20s ease-in-out infinite !important;
+  animation-delay: -10s !important;
+}
+
+.social-links a:nth-child(2),
+.social-links .social-link:nth-child(2) {
+  animation: float-sync-tertiary 20s ease-in-out infinite !important;
+  animation-delay: -15s !important;
+}
+
+.social-links a:nth-child(3),
+.social-links .social-link:nth-child(3) {
+  animation: float-sync-micro 20s ease-in-out infinite !important;
+  animation-delay: -5s !important;
+}
+
+/* Force override any conflicting styles */
+.social-links * {
+  animation-play-state: running !important;
+  animation-fill-mode: both !important;
+}

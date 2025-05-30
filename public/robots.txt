@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /lol-face-normal.png
+Disallow: /lol-face-shouting.png
+Disallow: /lol-face-main.png
+Disallow: /small-bullet.png
+Disallow: /lolguy.png

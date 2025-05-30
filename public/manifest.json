@@ -1,0 +1,17 @@
+{
+  "name": "LOL Guy",
+  "short_name": "LOL Guy",
+  "description": "NOT a laugh. Just a reflex.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
